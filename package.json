@@ -1,6 +1,6 @@
 {
   "name": "is-mychatbot",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Chatbot Widget 2.0",
   "main": "index.js",
   "scripts": {
