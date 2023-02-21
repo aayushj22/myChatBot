@@ -1,6 +1,6 @@
-import { Widget } from "./src";
+import { Widget } from "./src/Widget";
 
 export {
   Widget
 }
-export default is-mychatbot;
+export default is-mychatbot;  
