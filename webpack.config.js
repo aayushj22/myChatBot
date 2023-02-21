@@ -1,65 +1,50 @@
-const path = require("path");
-// const HtmlWebPackPlugin = require("html-webpack-plugin");
-const TerserPlugin = require("terser-webpack-plugin");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-// eslint-disable-next-line no-unused-vars
-const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
-module.exports = {
-  entry: ["regenerator-runtime/runtime.js", "./index.js"],
-  mode: "development",
-  output: {
-    path: path.join(__dirname, "/dist"),
-    filename: "index.js",
-    library: "ChatbotWidget",
-    libraryTarget: "umd",
-  },
-  optimization: {
-    minimizer: [new TerserPlugin({ extractComments: false })],
-  },
+import path from 'path';
+import CopyPlugin from 'copy-webpack-plugin';
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 
-  resolve: {
-    extensions: [".js", ".jsx"],
+const plugins = [
+  new CleanWebpackPlugin(),
+  new CopyPlugin({
+    patterns: [
+      { from: './README.md' },
+      { from: './package.json' },
+      { from: './tools', to: 'tools' },
+    ],
+  }),
+];
+
+export default {
+  devtool: 'hidden-source-map',
+  entry: './src/index.js',
+  output: {
+    path: path.resolve('./dist'),
+    filename: 'index.js',
+    libraryTarget: 'var',
+    library: 'mychatbot',
   },
+  externals: {
+    react: 'React',
+    'react-dom': 'ReactDOM',
+    'styled-components': 'styled',
+  },
+  resolve: {
+    extensions: ['.js', '.json'],
+    fallback: {
+      fs: false,
+      net: false,
+      tls: false,
+    },
+  },
+  plugins,
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader",
-          options: {
-            presets: [
-              "@babel/preset-env",
-              ["@babel/preset-react", { runtime: "automatic" }],
-            ],
-          },
+          loader: 'babel-loader',
         },
-      },
-      {
-        test: /\.css$/i,
-        use: ["style-loader", "css-loader", "postcss-loader"],
-      },
-      {
-        test: /\.(jpg|png|gif|svg|woff|ttf|eot)$/,
-        use: {
-          loader: "url-loader",
-        },
-      },
-      {
-        test: /\.(png|svg|jpg|jpeg|gif)$/i,
-        type: "asset/resource",
       },
     ],
   },
-  plugins: [
-    // new BundleAnalyzerPlugin(),
-    new HtmlWebpackPlugin({
-      title: "Demo Page",
-      // Load a custom template (lodash by default)
-      template: "public/webpack_template.html",
-    }),
-  ],
-  externals: {
-    react: "react"
-  }
 };
