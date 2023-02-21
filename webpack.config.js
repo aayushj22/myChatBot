@@ -59,19 +59,7 @@ module.exports = {
       template: "public/webpack_template.html",
     }),
   ],
-  externals: {      
-    // Don't bundle react or react-dom      
-    react: {          
-        commonjs: "react",          
-        commonjs2: "react",          
-        amd: "React",          
-        root: "React"      
-    },      
-    "react-dom": {          
-        commonjs: "react-dom",          
-        commonjs2: "react-dom",          
-        amd: "ReactDOM",          
-        root: "ReactDOM"      
-    }  
-} 
+  externals: {
+    react: "react"
+  }
 };
