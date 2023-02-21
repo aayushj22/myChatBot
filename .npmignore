@@ -22,7 +22,7 @@ yarn-error.log*
 
 # Development folders and files
 public
-src
+dist
 scripts
 config
 .travis.yml
