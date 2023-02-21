@@ -1,6 +1,6 @@
-import path from 'path';
-import CopyPlugin from 'copy-webpack-plugin';
-import { CleanWebpackPlugin } from 'clean-webpack-plugin';
+const path = require("path");
+const CopyPlugin = require("copy-webpack-plugin");
+const {CleanWebpackPlugin} = require("clean-webpack-plugin");
 
 const plugins = [
   new CleanWebpackPlugin(),
@@ -8,12 +8,11 @@ const plugins = [
     patterns: [
       { from: './README.md' },
       { from: './package.json' },
-      { from: './tools', to: 'tools' },
     ],
   }),
 ];
 
-export default {
+module.exports = {
   devtool: 'hidden-source-map',
   entry: './src/index.js',
   output: {
@@ -28,7 +27,7 @@ export default {
     'styled-components': 'styled',
   },
   resolve: {
-    extensions: ['.js', '.json'],
+    extensions: ['.js', '.json', ".jsx"],
     fallback: {
       fs: false,
       net: false,
@@ -39,12 +38,32 @@ export default {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
+          options: {
+            presets: [
+              "@babel/preset-env",
+              ["@babel/preset-react", { runtime: "automatic" }],
+            ],
+          },
         },
       },
+      {
+        test: /\.(css|sass|scss)$/,
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader'
+          },
+          {
+            loader: 'sass-loader'
+          }
+        ]
+      }
     ],
   },
 };

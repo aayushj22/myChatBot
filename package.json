@@ -43,7 +43,8 @@
     "react-scripts": "5.0.1",
     "redux-persist": "^6.0.0",
     "remark-gfm": "^3.0.1",
-    "styled-components": "^5.3.6"
+    "sass": "^1.58.3",
+    "styled-components": ">= 5.1"
   },
   "peerDependencies": {
     "react": ">=18.2.0",
@@ -75,10 +76,13 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.4.3",
+    "@types/node": "^18.14.0",
     "@webpack-cli/generators": "^2.5.0",
     "autoprefixer": "^10.4.13",
     "babel-loader": "^9.1.0",
+    "clean-webpack-plugin": "^4.0.0",
     "compression-webpack-plugin": "^10.0.0",
+    "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.7.1",
     "html-webpack-plugin": "^5.5.0",
     "postcss": "^8.4.19",
